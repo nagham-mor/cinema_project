@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/login.css">
+
+    <title>Login</title>
+</head>
+<body class="body"></body>
+<header id="header">
+     <div class="header-container">
+    <div class="logo">Cinema</div>
+
+    <nav class="navigate-bar">
+        <a href="../index.html">Home</a>
+
+    </nav>
+        <div class="navigate-auth">
+        </div>
+    </div>
+ </div>
+
+</header>
+
+    <div class="login-container">
+        <h2 class="title">Login</h2>
+
+        <form id="login-form" class="login-form">
+        <p id="loginError" class="loginError"></p>
+            <div class="container">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="Enter your Email" name="email" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" name="password" required>
+
+                <button type="submit" class="button-primary">Login</button>
+                
+                <label>
+                    <input type="checkbox" checked="checked" name="remember">Remember me
+                </label>
+            </div>
+            <div class="container">
+                <button class="button-secondary" type="button">Cancel</button>
+                
+                <p class="forgot">
+                    Forgot <a href="#">passwod?</a>
+                </p>
+           
+            Already have an account? <a href="signup.html">Sign Up here</a>
+
+            </div>
+        </form>
+    </div>
+
+
+    <script src="../scripts/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/user_profile.css" />
+  <title>User Profile</title>
+</head>
+
+<body class="profile-body">
+
+  <header id="header">
+    <div class="header-container">
+
+      <div class="logo">ZAK-Cinema</div>
+      <nav class="navigate-bar">
+        <a href="../index.html">Home</a>
+
+      </nav>
+      <div class="navigate-auth">
+        <a href="../pages/login.html">Login</a>
+        <a href="../pages/user_profile.html">Profile</a>
+      </div>
+    </div>
+  </header>
+
+  <h1 class="profile-title">Your Profile</h1>
+
+  <div class="profile-row">
+    <strong class="profile-label">First name:</strong>
+    <span id="firstNameBox" class="profile-value"></span>
+  </div>
+
+  <div class="profile-row">
+    <strong class="profile-label">Last name:</strong>
+    <span id="lastNameBox" class="profile-value"></span>
+  </div>
+
+  <div class="profile-row">
+    <strong class="profile-label">Email:</strong>
+    <span id="emailBox" class="profile-value"></span>
+  </div>
+
+  <div class="profile-row">
+    <strong class="profile-label">Phone number:</strong>
+    <span id="phoneBox" class="profile-value"></span>
+  </div>
+
+  <button id="logoutButton" class="logoutButton">Log out</button>
+
+
+  <script src="../scripts/user_profile.js"></script>
+</body>
+</html>

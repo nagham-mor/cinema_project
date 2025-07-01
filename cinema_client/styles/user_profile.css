@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: gainsboro;
+  color: black;
+}
+
+header {
+  background: black;
+  color: white;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.navigate-bar a,
+.navigate-auth a {
+  color: white;
+  text-decoration: none;
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.navigate-bar a:hover,
+.navigate-auth a:hover {
+  text-decoration: underline;
+}
+
+body > div > a {
+  display: inline-block;
+  margin: 14px 6px;
+  color: blue;
+  text-decoration: none;
+}
+
+body > div > a:hover {
+  text-decoration: underline;
+}
+
+
+
+h1 {
+  margin: 20px 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+div {
+  margin: 8px 0;
+}
+
+strong {
+  display: inline-block;
+  width: 120px;
+}
+
+span {
+  font-weight: bold;
+}
+
+.logoutButton {
+  display: block;
+  margin: 28px auto 0;
+  padding: 10px 20px;
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background: mediumblue;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  strong {
+    width: 90px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+}

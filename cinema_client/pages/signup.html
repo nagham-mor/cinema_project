@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/signup.css">
+
+    <title>Sign Up</title>
+</head>
+
+<body class="body">
+
+<header id="header">
+    <div class="header-container">
+
+      <div class="logo">ZAK-Cinema</div>
+      <nav class="navigate-bar">
+        <a href="../index.html">Home</a>
+
+      </nav>
+      <div class="navigate-auth">
+       
+      </div>
+    </div>
+  </header>
+
+
+    <div class="signup-container">
+        <h2 class="title">Sign Up</h2>
+
+        <form id="signup" class="signup-form">
+        <p id="signupError" class="signupError"></p>
+
+
+      <div class="container">
+      <div class="container">
+      <label for="first_name">First Name</label>
+      <input id="first_name"name="first_name"type="text"placeholder="Enter your first name"required />
+
+      <label for="last_name">Last Name</label>
+      <input id="last_name" name="last_name" type="text" placeholder="Enter your last name" required />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="Enter your email"required />
+
+      <label for="password">Password</label>
+      <input id="password"name="password" type="password"placeholder="Enter your password"required minlength="8"/>
+
+      <label for="phone_number">Phone Number</label>
+      <input
+        id="phone_number" name="phone_number" type="tel" placeholder="Enter your phone number"/>
+
+      <button type="submit" class="button-primary">Sign Up</button>
+    </div>
+
+    <div class="container">
+      <button type="button" class="button-secondary" onclick="history.back()">Cancel</button>
+      <p class="forgot">Already have an account? <a href="login.html">Login here</a></p>
+
+            </div>
+        </form>
+    </div>
+
+    <script src="../scripts/signup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+
+
+
+    
+</body>
+</html>
