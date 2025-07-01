@@ -1,0 +1,65 @@
+header {
+  background: black;
+  color: white;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+.navigate-bar a,
+.navigate-auth a {
+  color: white;
+  text-decoration: none;
+  margin-left: 14px;
+  font-size: 14px;
+}
+.navigate-bar a:hover,
+.navigate-auth a:hover {
+  text-decoration: underline;
+}
+
+.detail-container {
+  max-width: 600px;
+  background: white;
+  margin: 40px auto;
+  padding: 18px 20px;
+  border-radius: 6px;
+}
+
+.detail-container h1 {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+
+.detail-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+.description {
+  margin: 12px 0;
+}
+
+.reserve-btn {
+  display: inline-block;
+  background: blue;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reserve-btn:hover {
+  background: mediumblue;
+}
+
+ 
