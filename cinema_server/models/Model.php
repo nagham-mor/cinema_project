@@ -1,85 +1,93 @@
-<?php
-abstract class Model
-{
+<?php 
+abstract class Model{
+
     protected static string $table;
-    protected static string $primary_key   = "id";
+    protected static string $primary_key = "id";
 
-    protected static string $table_1;
-    protected static string $primary_key_1 = "id";
-
-    public static function find(mysqli $conn, int $id)
-    {
-        $sql = sprintf(
-            "SELECT * FROM %s WHERE %s = ?",
-            static::$table,
-            static::$primary_key
-        );
-
-        $query = $conn->prepare($sql);
+    public static function find(mysqli $mysqli, int $id){
+        $sql = sprintf("Select * from %s WHERE %s = ?", 
+                        static::$table, 
+                        static::$primary_key);
+        
+        $query = $mysqli->prepare($sql);
         $query->bind_param("i", $id);
         $query->execute();
 
         $data = $query->get_result()->fetch_assoc();
+
         return $data ? new static($data) : null;
     }
 
-    public static function find_join_tables(mysqli $conn, int $id)
-    {
-        $sql = sprintf(
-            "SELECT * FROM %s
-             JOIN %s ON %s.%s = %s.%s
-             WHERE %s.%s = ?",
-            static::$table,
-            static::$table_1,
-            static::$table,   static::$primary_key,
-            static::$table_1, static::$primary_key_1,
-            static::$table,   static::$primary_key
-        );
+    public static function all(mysqli $mysqli){
+        $sql = sprintf("Select * from %s", static::$table);
+        
+        $query = $mysqli->prepare($sql);
+        $query->execute();
 
-        $query = $conn->prepare($sql);
+        $data = $query->get_result();
+
+        $objects = [];
+        while($row = $data->fetch_assoc()){
+            $objects[] = new static($row); 
+        }
+
+        return $objects; 
+    }
+
+    public static function delete(mysqli $mysqli, int $id){
+        $sql = sprintf("Delete from %s WHERE %s = ?", 
+                        static::$table, 
+                        static::$primary_key);
+        
+        $query = $mysqli->prepare($sql);
         $query->bind_param("i", $id);
-        $query->execute();
+        $result = $query->execute();
+        return $result;
+    }           
 
-        $data = $query->get_result()->fetch_assoc();
-        return $data ? new static($data) : null;
+    public static function deleteAll(mysqli $mysqli){
+        $sql = sprintf("Delete from %s", static::$table);
+
+        $query = $mysqli->prepare($sql);
+        return $query->execute();
+     
     }
 
-    public static function all(mysqli $conn): array
+    public static function create(mysqli $mysqli, array $data)
     {
-        $sql    = sprintf("SELECT * FROM %s", static::$table);
-        $query  = $conn->prepare($sql);
-        $query->execute();
-
-        $result  = $query->get_result();
-        $objects = [];
-        while ($row = $result->fetch_assoc()) {
-            $objects[] = new static($row);
-        }
-
-        return $objects;
-    }
-
-    public static function all_on_join(mysqli $conn): array
-    {
-        $sql = sprintf(
-            "SELECT * FROM %s
-             JOIN %s ON %s.%s = %s.%s",
+        $columns      = implode(',', array_keys($data));
+        $values       = "'" . implode("','", array_values($data)) . "'";
+        $sql          = sprintf(
+            "INSERT INTO %s (%s) VALUES (%s)",
             static::$table,
-            static::$table_1,
-            static::$table,   static::$primary_key,
-            static::$table_1, static::$primary_key_1
+            $columns,
+            $values
         );
-
-        $query  = $conn->prepare($sql);
-        $query->execute();
-
-        $result  = $query->get_result();
-        $objects = [];
-        while ($row = $result->fetch_assoc()) {
-            $objects[] = new static($row);
-        }
-
-        return $objects;
+        $mysqli->query($sql);
+        $newId = $mysqli->insert_id;
+        return static::find($mysqli, $newId);
     }
+
+   public static function update(mysqli $mysqli, array $data){
+    
+    $id = $data['id'];
+    unset($data['id']);
+
+    $columns = implode(',', array_keys($data));
+    $values  = "'" . implode("','", array_values($data)) . "'";
+
+    $sql = sprintf(
+        "UPDATE %s SET (%s) = (%s) WHERE %s = %d",
+        static::$table,
+        $columns,
+        $values,
+        static::$primary_key,
+        $id
+    );
+
+    return $mysqli->query($sql);
 }
-?>
+}
+
+
+

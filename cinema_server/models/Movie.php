@@ -29,7 +29,7 @@ class Movie extends Model {
         $this->end_date= $data["end_date"];
     }
 
-    public function toArray(): array {
+    public function toArray() {
         return [
             
             "id" => $this->id,

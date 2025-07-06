@@ -1,31 +1,32 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const nowGrid  = document.getElementById("nowGrid");
   const soonGrid = document.getElementById("soonGrid");
   const today    = new Date("2025-07-05");
+  
+  const API_BASE = "http://localhost/SE_Factory_applications/cinema_project/cinema_server";
 
   axios
-    .get("http://localhost/SE_Factory_applications/cinema_project/cinema_server/controllers/get_movies.php")
+    .get(`${API_BASE}/get_all_movies`)
     .then(response => {
-      const list = response.data.movies || [];
+   
+      const movies = response.data.payload || [];
 
-      list.forEach(movies => {
-        const date = new Date(movies.start_date);
+      movies.forEach(movie => {
+        const date = new Date(movie.start_date);
 
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
-          <img src="data:image/jpeg;base64,${movies.poster}" alt="Poster">
-          <h3>${movies.title}</h3>
-          <p>${movies.start_date}</p>
+          <img src="data:image/jpeg;base64,${movie.poster}" alt="Poster of ${movie.title}">
+          <h3>${movie.title}</h3>
+          <p>Starts: ${movie.start_date}</p>
         `;
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => {
+          window.location.href = `pages/movieDetails.html?id=${movie.id}`;
+        });
 
-       card.style.cursor = 'pointer';      
-       card.addEventListener('click', () => {
-       window.location.href = `pages/movieDetails.html?id=${movies.id}`;
-});
-
-
-        
         if (date <= today) {
           nowGrid.appendChild(card);
         } else {
@@ -33,5 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      console.error("Error fetching movies:", err);
+      const msg = document.createElement("p");
+      msg.textContent = "Unable to load movies. Please try again later.";
+      nowGrid.appendChild(msg);
+    });
 });

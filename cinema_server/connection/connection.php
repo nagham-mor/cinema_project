@@ -1,14 +1,8 @@
-<?php
-$servername="localhost";
-$username="root";
-$password="";
-$database="cinema_db";
+<?php 
 
-$conn = mysqli_connect($servername, $username,$password, $database);
+$db_host = "localhost";
+$db_name = "cinema_db"; 
+$db_user = "root"; 
+$db_pass = null;
 
-if(!$conn){
-    die("connection failed: ".mysqli_connect_error());
-
-}
-
-?>
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);

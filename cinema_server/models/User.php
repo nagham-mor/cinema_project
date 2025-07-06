@@ -1,7 +1,8 @@
 <?php
-require("../connection/connection.php");
+require_once __DIR__ . '/../connection/connection.php';
+require_once("Model.php");
 
-class User{
+class User extends Model{
     private int $id;
     private string $first_name;
     private string $last_name;
@@ -9,14 +10,14 @@ class User{
     private string $password;        
     private string $phone_number;
     private string $created_at;
-    private string $updated_at;
+    private ?string $updated_at;
 
     protected static string $table = "users";
 
     public function __construct(array $data){
         $this->id = $data["id"];
         $this->first_name = $data["first_name"];
-        $this->last_name = $data["first_name"];
+        $this->last_name = $data["last_name"];
         $this->email = $data["email"];
         $this->password = $data["password"];
         $this->phone_number = $data["phone_number"];
@@ -24,6 +25,31 @@ class User{
         $this->updated_at = $data["updated_at"];
     }
 
+    public function getId(){ 
+        return $this->id; 
+    }
+    public function getFirstName(){ 
+        return $this->first_name; 
+    }
+    public function getLastName(){
+        return $this->last_name; 
+    }
+    public function getEmail(){
+         return $this->email;
+    }
+    public function getPassword(){
+         return $this->password; 
+
+    }
+    public function getPhoneNumber(){ 
+        return $this->phone_number; 
+    }
+    public function getCreatedAt(){
+        return $this->created_at; 
+    }
+    public function getUpdatedAt(){
+        return $this->updated_at; 
+    }
     public function toArray(){
         return [$this->id, $this->$first_name, $this->$last_name, $this->$email, $this->$password, $this->$phone_number, $this->$created_at, $this->$updated_at];
     }
@@ -56,40 +82,15 @@ class User{
          return $response;
     }
 
-        public static function check_email_existence(mysqli $conn, string $email): bool {
-        $sql = "SELECT id FROM users WHERE email = ?";
-        $query = $conn->prepare($sql);
-        $query->bind_param("s", $email);
-        $query->execute();
-        $query->store_result();
-        $exists = $query->num_rows > 0;
-        $query->close();
-        return $exists;
+    public static function findByEmail(mysqli $db, $email)
+    {
+        $sql  = "SELECT * FROM " . static::$table . " WHERE email = ? LIMIT 1";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $row  = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        return $row ? new static($row) : null;
     }
-
-    public static function insert(mysqli $conn, array $data): array {
-        $response = [];
-
-        $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
-
-        $sql   = "INSERT INTO users (first_name, last_name, email, password, phone_number) VALUES (?, ?, ?, ?, ?)";
-        $query = $conn->prepare($sql);
-        $query->bind_param(
-            "sssss",
-            $data['first_name'],
-            $data['last_name'],
-            $data['email'],
-            $hashed_password,
-            $data['phone_number']
-        );
-
-        if ($query->execute()) {
-            $response["ok"] = true;
-        } else {
-            $response["ok"] = false;
-            $response["error"] = "Database error";
-        }
-
-        $query->close();
-        return $response;
-    }}
+   }
