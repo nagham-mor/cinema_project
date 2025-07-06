@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nowGrid  = document.getElementById("nowGrid");
   const soonGrid = document.getElementById("soonGrid");
-  const today    = new Date("2025-07-05");
+  const today = new Date("2025-07-05");
   
   const API_BASE = "http://localhost/SE_Factory_applications/cinema_project/cinema_server";
 
